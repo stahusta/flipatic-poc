@@ -78,7 +78,7 @@ export function VideoLayerItemV2({
             : "border-[var(--color-border-base)]",
           // Active slide → render as a clean gray placeholder
           isSlideGhost &&
-            "border-dashed bg-[var(--color-bg-disabled)] [&_*]:!invisible",
+            "border-dashed border-[#A1A1AA]/30 bg-[#A1A1AA]/10 [&_*]:!invisible",
         )}
       >
         {/* Content (title + badges) */}
