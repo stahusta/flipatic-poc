@@ -76,7 +76,12 @@ export function VideoLayerItemV2({
           showInteractiveBorder
             ? "border-[var(--color-button-primary)]"
             : "border-[var(--color-border-base)]",
-          // Active slide → render as a clean gray placeholder
+          // Active slide → render as a clean gray placeholder. Use
+          // browser-native `border-dashed` (instead of SVG dasharray)
+          // because the SVG `stroke-dasharray="4 4"` on a rounded rect
+          // doesn't divide evenly across the perimeter — dashes look
+          // crooked at corners on variable-width elements. Native
+          // dashed is slightly shorter but evenly distributed.
           isSlideGhost &&
             "border-dashed border-[#A1A1AA]/30 bg-[#A1A1AA]/10 [&_*]:!invisible",
         )}

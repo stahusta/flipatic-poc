@@ -71,8 +71,12 @@ export function SortableThumbV2({
         // neighbours sideways. Layout snaps; image fades in via opacity.
         "duration-300 ease-[var(--ease-out-soft)]",
         justReleased ? "transition-none" : "transition-[width]",
-        // Collapse the source slot to 0 while dragging.
-        isDragging && "!w-0",
+        // Collapse the source slot to 0 while dragging. `invisible` hides
+        // the wrapper's own paint (including the 2px white box-shadow) —
+        // otherwise the shadow would render as a 4px-wide halo at the
+        // collapsed slot's position and visually clip the neighbouring
+        // thumb's left edge once cursor moves push them adjacent.
+        isDragging && "!w-0 invisible",
       )}
     >
       <div
