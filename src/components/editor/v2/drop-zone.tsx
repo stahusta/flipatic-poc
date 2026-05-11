@@ -87,7 +87,7 @@ export function DropZone({
             // real thumb and a placeholder matches the gap between two
             // real thumbs (strokes meet across the 4px gap).
             "shadow-thumb size-10 rounded-lg border border-dashed",
-            "border-[#A1A1AA]/30 bg-[#A1A1AA]/10",
+            "border-[#D4D4D8] bg-[#FAFAFA]",
             // scale-x synchronises with the outer's width transition:
             // inner visual width = 40 × scaleX, outer content width
             // grows 4 → 48. Both with origin-centre + same duration/ease,

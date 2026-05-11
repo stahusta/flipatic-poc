@@ -141,6 +141,7 @@ body {
 /* Thumb-enter keyframe removed — zero-animation baseline. Will be
    reintroduced step by step from this point forward. */
 
-/* placeholder-dashed utility removed — replaced by Tailwind's native
-   `border-dashed` because the SVG dasharray approach produced uneven
-   dashes around rounded corners on variable-width elements. */
+/* placeholder-dashed utility removed — browser-native `border-dashed`
+   handles rounded corners better (dashes stay perpendicular to edges
+   instead of slanting where SVG dasharray's pattern remainder lands
+   on a curve). */

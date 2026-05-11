@@ -76,14 +76,14 @@ export function VideoLayerItemV2({
           showInteractiveBorder
             ? "border-[var(--color-button-primary)]"
             : "border-[var(--color-border-base)]",
-          // Active slide → render as a clean gray placeholder. Use
-          // browser-native `border-dashed` (instead of SVG dasharray)
-          // because the SVG `stroke-dasharray="4 4"` on a rounded rect
-          // doesn't divide evenly across the perimeter — dashes look
-          // crooked at corners on variable-width elements. Native
-          // dashed is slightly shorter but evenly distributed.
+          // Active slide → render as a clean placeholder matching the
+          // Figma spec: fill #FAFAFA, dashed stroke #D4D4D8. Using
+          // browser-native `border-dashed` instead of SVG dasharray
+          // because the SVG approach produced visibly slanted dashes
+          // around rounded corners when 4+4 didn't divide the
+          // perimeter evenly.
           isSlideGhost &&
-            "border-dashed border-[#A1A1AA]/30 bg-[#A1A1AA]/10 [&_*]:!invisible",
+            "border-dashed border-[#D4D4D8] bg-[#FAFAFA] [&_*]:!invisible",
         )}
       >
         {/* Content (title + badges) */}
