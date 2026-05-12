@@ -63,6 +63,14 @@ export function SortableThumbV2({
         // on the inner, mid-transition the visual stays inside the
         // wrapper at every frame (no "image clipped from right" feel).
         "shadow-thumb relative w-10 shrink-0 overflow-hidden rounded-lg flex items-center justify-center",
+        // HOVER: 1px blue stroke offset 1px from the thumb edge.
+        // Layer 1 (top): 1px white → invisible 1px gap between thumb
+        //                and ring (matches the white slide background).
+        // Layer 2 (bottom): 2px blue → only the 1–2px outer slice peeks
+        //                from behind the white = 1px blue stroke at
+        //                1px offset from the edge.
+        "transition-[box-shadow] duration-150",
+        "hover:[box-shadow:0_0_0_1px_#ffffff,0_0_0_2px_var(--color-button-primary)]",
         // PICKUP: width animates in sync with the drop-zone (same 300ms
         // / ease) so the active slot morphs into placeholder as one
         // continuous motion (sum 4+40+4 → 48+0+0 stays constant per

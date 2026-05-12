@@ -83,6 +83,11 @@ export function VideoLayerItemV2({
           showInteractiveBorder
             ? "border-[var(--color-button-primary)]"
             : "border-[var(--color-border-base)]",
+          // When the cursor is over a thumb INSIDE this slide, drop the
+          // slide's blue border back to base — so the user can tell
+          // "I'm about to grab a thumb" vs "I'm about to grab the slide".
+          // Two separate hover modes, two distinct visual states.
+          "[&:has([data-thumb-id]:hover)]:!border-[var(--color-border-base)]",
           // Active slide → render as a clean placeholder matching the
           // Figma spec: fill #FAFAFA, dashed stroke #D4D4D8. Using
           // browser-native `border-dashed` instead of SVG dasharray
