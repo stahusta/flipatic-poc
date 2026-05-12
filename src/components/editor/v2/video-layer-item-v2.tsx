@@ -4,7 +4,7 @@ import {
   SortableContext,
   horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, Plus } from "lucide-react";
 import { Fragment } from "react";
 import type { Slide } from "@/types/editor";
 import { Badge } from "@/components/ui/badge";
@@ -61,11 +61,18 @@ export function VideoLayerItemV2({
   // user moves the cursor over them.
   const spreadThumbs =
     isHovered || isInOverlay || isThumbDragSource || activeTargetIdx >= 0;
+  // DZ-y between thumbs only expand to w-1 (4px gap) when this slide is
+  // actively part of a drag — either source or current drop target.
+  // On plain hover (no drag) the DZ-y stay at w-0 so the row sits tight
+  // against the "..." button without an extra 4px gap.
+  const dzSpread = isThumbDragSource || activeTargetIdx >= 0;
   // More button (⋯) appears only when the user is meaningfully focused on a
   // specific slide — NOT in every destination during a thumb drag.
   const showMore = isHovered || isInOverlay || isThumbDragSource;
 
   const showInteractiveBorder = isHovered || isInOverlay;
+
+  const isEmpty = slide.thumbnails.length === 0;
 
   return (
     <div className="relative w-full">
@@ -114,11 +121,32 @@ export function VideoLayerItemV2({
                 <DropZone
                   slideId={slide.id}
                   index={0}
-                  spread={spreadThumbs}
+                  spread={dzSpread}
                   isActiveTarget={activeTargetIdx === 0}
                   hidden={dzHidden(0)}
                   justReleased={justReleased}
                 />
+                {/* Empty-state placeholder — shown when slide has no
+                    thumbnails. Hidden only when the cursor is over THIS
+                    empty slide during a drag (DZ's grey placeholder
+                    takes over). When a thumb is dragged over a DIFFERENT
+                    slide, this "+" stays visible. */}
+                {isEmpty && activeTargetIdx < 0 && (
+                  <button
+                    type="button"
+                    aria-label="Add thumbnail"
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onClick={(e) => e.stopPropagation()}
+                    className={cn(
+                      "size-10 shrink-0 rounded-lg border border-dashed",
+                      "border-[#D4D4D8] bg-[#FAFAFA]",
+                      "inline-flex items-center justify-center text-[var(--color-fg-muted)]",
+                      "hover:border-[var(--color-fg-muted)] transition-colors",
+                    )}
+                  >
+                    <Plus className="size-4" strokeWidth={1.75} />
+                  </button>
+                )}
                 {slide.thumbnails.map((t, i) => (
                   <Fragment key={t.id}>
                     <div
@@ -149,7 +177,7 @@ export function VideoLayerItemV2({
                     <DropZone
                       slideId={slide.id}
                       index={i + 1}
-                      spread={spreadThumbs}
+                      spread={dzSpread}
                       isActiveTarget={activeTargetIdx === i + 1}
                       hidden={dzHidden(i + 1)}
                       justReleased={justReleased}

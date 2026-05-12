@@ -44,7 +44,7 @@ export const INITIAL_SLIDES: Slide[] = [
     title: "Checkpoint Charlie",
     duration: "3s",
     hasQuote: true,
-    thumbnails: [{ id: "t-05-1", src: "/figma-assets/thumb-09.png" }],
+    thumbnails: [],
   },
   {
     id: "s-06",
