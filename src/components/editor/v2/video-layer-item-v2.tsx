@@ -147,7 +147,15 @@ export function VideoLayerItemV2({
                     <Plus className="size-4" strokeWidth={1.75} />
                   </button>
                 )}
-                {slide.thumbnails.map((t, i) => (
+                {slide.thumbnails.map((t, i) => {
+                  // Internal DZ-y (between thumbs) expand to 4px on
+                  // hover so the row shows visible gaps. The LAST DZ
+                  // (after the last thumb, before the "..." button)
+                  // stays at w-0 on hover — only expands during drag —
+                  // so there's no unwanted 4px gap before the button.
+                  const isLastThumb = i === slide.thumbnails.length - 1;
+                  const dzAfterSpread = isLastThumb ? dzSpread : spreadThumbs;
+                  return (
                   <Fragment key={t.id}>
                     <div
                       className={cn(
@@ -177,13 +185,14 @@ export function VideoLayerItemV2({
                     <DropZone
                       slideId={slide.id}
                       index={i + 1}
-                      spread={dzSpread}
+                      spread={dzAfterSpread}
                       isActiveTarget={activeTargetIdx === i + 1}
                       hidden={dzHidden(i + 1)}
                       justReleased={justReleased}
                     />
                   </Fragment>
-                ))}
+                  );
+                })}
               </div>
             </SortableContext>
 
